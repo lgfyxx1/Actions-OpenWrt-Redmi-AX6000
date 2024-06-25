@@ -7,18 +7,39 @@
 # https://github.com/P3TERX/Actions-OpenWrt
 # Description: Build OpenWrt using GitHub Actions
 #
-name: Redmi-AX6000-hanwckf
+name: REDMI-AX6000
 
+### 界面控制部分 ( 以下内容请保持不变 )
 on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
-  schedule:
-    # - cron: "0 0 ? * THU"
+      Tempoary_IP:
+        description: '192.168.3.10'
+        default: ''
+      Tempoary_CONFIG:
+        description: '配置文件 [可选]'
+        default: ''
+      Tempoary_FLAG:
+        description: '固件标签 [可选]'
+        default: ''
+### 界面控制部分结束 ( 以上内容请保持不变 )
+
+  ## Git Push 时触发编译(不要删除此行注释)
+  #push:
+  #  branches: 
+  #    - master
+  
+  ## 定时触发编译(不要删除此行注释)
+  #schedule:
+  #  - cron: 0 8 * * 5
+  
+  ## 重新点亮 Star 时触发编译(不要删除此行注释)
+  #watch:
+  #  types: [started]
+
+### 请按需求修改以下内容
+### 环境变量设置
 
 env:
   REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
