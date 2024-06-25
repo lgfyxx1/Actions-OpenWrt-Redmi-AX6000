@@ -51,6 +51,7 @@ env:
   SSH_ACTIONS: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
+  UPLOAD_BIN_ARTIFACTS: true
   TZ: Asia/Shanghai
   OPENWRT_NAME: OpenWrt
 
@@ -161,6 +162,13 @@ jobs:
         touch release.txt
         echo "📥 固件下载" >> release.txt
         echo "status=success" >> $GITHUB_OUTPUT
+
+    - name: 上传Bin文件夹到to Artifacts
+      uses: actions/upload-artifact@main
+      if: env.UPLOAD_BIN_ARTIFACTS == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
+      with:
+        name: ${{ env.DEVICE_NAME }}_bin_${{ env.FILE_DATE }}
+        path: openwrt/bin
         
     - name: 发布至release
       uses: softprops/action-gh-release@v1
